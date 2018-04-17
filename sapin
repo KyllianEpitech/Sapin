@@ -1,0 +1,112 @@
+#!/usr/bin/python3
+## EPITECH PROJECT, 2018
+## SAPIN
+## File description:
+## SAPIN Python
+##
+
+import sys
+import os
+
+def quit():
+        print("\033[92m\033[1mUSAGE")
+        print("\033[0m\t./sapin [size]")
+        print("\033[92m\033[1mDESCRIPTION")
+        print("\033[0m\tsize\tthe size of your tree")
+        sys.exit(84)
+
+def get_nb_stars(size, lines):
+        i = 1
+        j = 1
+        stars = 1
+        while (i <= size):
+                while (j < lines):
+                        stars = stars + 2
+                        j = j + 1
+                j = 1
+                i = i + 1
+                lines = lines + 1
+                stars = stars - 2 * (i / 2)
+        stars = stars + 2 * (i / 2)
+        return stars
+
+def display_body(size, lines, stars):
+        space = stars / 2
+        count = 0
+        i = 1
+        j = 0
+        stars = 1
+        while (i <= size):
+                while (j < lines):
+                        count = space
+                        while (count > 0):
+                                print(' ', end='')
+                                count = count - 1
+                        count = stars
+                        while (count > 0):
+                                print('\033[92m\033[1m*\033[0m', end='')
+                                count = count - 1
+                        j = j + 1
+                        print('')
+                        space = space - 1
+                        stars = stars + 2
+                i = i + 1
+                j = 0
+                lines = lines + 1
+                if (i < 3):
+                        space = space + 2
+                        stars = stars - 4
+                else:
+                        space = space + i / 2 + 1
+                        stars = stars - 2 - 2 * (i / 2)
+
+def display_space_trunk(count):
+        while (count > 0):
+                print(' ', end='')
+                count = count - 1
+
+
+def display_trunk(size, stars):
+        i = 0
+        j = 0
+        trunk = 0
+        if (size == 1):
+                print('\033[31m\033[1m    |   \033[0m')
+                return
+        if (size % 2 == 0):
+                trunk = size + 1
+        else:
+                trunk = size
+        while (i < size):
+                display_space_trunk((stars / 2) - size / 2)
+                while (j < trunk):
+                        print('\033[31m\033[1m|\033[0m', end='')
+                        j = j + 1
+                j = 0
+                i = i + 1
+                print('')
+                
+def sapin(size):
+        number_lines = 4 ### 4 lines by default ###
+        number_stars = get_nb_stars(size, number_lines)
+        display_body(size, number_lines, number_stars)
+        display_trunk(size, number_stars)
+
+def main():
+        if (len(sys.argv) != 2):
+                print("\033[91m\033[1m\t-------------------")
+                print("\033[91m\033[1m\tONE ARGUMENT ONLY !\033[0m")
+                print("\033[91m\033[1m\t-------------------")
+                quit()
+        else:
+                size = sys.argv[1]
+                if (size.isdigit() != True):
+                        print("\033[91m\033[1m\t-------------")
+                        print("\033[91m\033[1m\tNUMBER ONLY !\033[0m")
+                        print("\033[91m\033[1m\t-------------")
+                        quit()
+                else:
+                        sapin(int(size))
+
+if __name__ == "__main__":
+    main()
