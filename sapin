@@ -93,9 +93,7 @@ def sapin(size):
         display_trunk(size, number_stars)
 
 def main():
-        if (sys.argv[1] == '-h'):
-                quit()
-        elif (len(sys.argv) != 2):
+        if (len(sys.argv) != 2):
                 print("\033[91m\033[1m\t-------------------")
                 print("\033[91m\033[1m\tONE ARGUMENT ONLY !\033[0m")
                 print("\033[91m\033[1m\t-------------------")
